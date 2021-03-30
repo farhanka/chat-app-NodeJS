@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Belajar NodeJS</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+        <script src="/socket.io/socket.io.js"></script>
+    </head>
+
+    <body>
+        <div class="container p-5 ">
+            <br>
+            <div class="jumbotron">
+                <div class="row">
+                    
+                    <h1 class="display-4">Kirim Pesan</h1>
+                    <div class="col position-static">
+
+                        <!-- Form -->
+                        <input id="nama" required type="text" class="form-control" placeholder="Nama" maxlength="20" >
+                        <br>
+                        <textarea id="pesanKirim" class="form-control " rows="7" placeholder="Tulis Pesan" length="100px"></textarea>
+                        <br>
+                        <button id="kirim" class="btn btn-success">Kirim</button>
+                        <!-- Form -->
+                    </div>
+
+                    <div class="col">
+
+    
+                        <!-- Pesan -->
+                        <div id="pesan" class="p-2 border border-success rounded">
+                            <h4>Pesan</h4> <hr> 
+                        </div>
+                        <!-- Pesan -->
+    
+                        <!-- <a href="/hapus" class="btn btn-danger">Hapus</a> -->
+                    </div>
+                </div>
+                   
+            </div>
+            
+        </div>
+
+        <style>
+            #pesan{
+                overflow: scroll;
+                min-height:40vh;
+                max-height:70vh;
+            }
+        </style>
+    </body>
+
+    <script>
+        var pesan = document.getElementById("pesanKirim");
+        var socket = io();
+        $(function () {
+            $("#kirim").click(function () {
+                var message = {
+                    nama: $("#nama").val(),
+                    message: $("#pesanKirim").val()
+                };
+                postPesan(message);
+                pesan.value = "";
+
+            })
+            getPesan();
+        });
+
+        socket.on('message', tambahPesan);
+
+        function tambahPesan(message) {
+            $("#pesan").append(
+                `<div class="col col-12"> <b class="text-primary">${message.nama}</b> : <span class=""> ${message.message}</span> </div>`);
+        }
+
+
+        function getPesan() {
+            $.get('http://localhost:3000/message', function (data) {
+                data.forEach(tambahPesan);
+            });
+        }
+
+        function postPesan(message) {
+            $.post('http://localhost:3000/message', message);
+        }
+
+        // function hapusPesan() {
+        //     $.post('http://localhost:3000/hapus');
+        // }
+
+    </script>
+</html>
