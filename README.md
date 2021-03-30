@@ -21,3 +21,10 @@ or
 $ nodemon server.js  
 
 buka http://localhost:3000/  
+
+- Badwords:  
+   mawar  
+   melati  
+   asoka  
+   kamboja  
+   kembang sepatu  
