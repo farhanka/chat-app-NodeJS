@@ -1,5 +1,7 @@
 # chat-app-NodeJS
-simple chat app using node
+Farhan Karomi ( 1808107010044 )
+
+simple chat app using nodejs  
 
 Dependencies:  
 "body-parser": "^1.19.0"  
