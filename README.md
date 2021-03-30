@@ -7,7 +7,17 @@ Dependencies:
 "mongoose": "^5.11.19"  
 "socket.io": "^3.1.2"  
 
+Database:  
+MongoDB  
+Download MongoDB Compass :  https://www.mongodb.com/try/download/compass  
+
+ - Buat database dengan nama <b>belajar_nodejs</b>   
+ - Buat collection dengan nama badwords  
+ - Import file <b>badwordku.csv</b> kedalam collection  
+  
 run:  
 $ node server.js  
 or  
-$ nodemon server.js
+$ nodemon server.js  
+
+buka http://localhost:3000/  
